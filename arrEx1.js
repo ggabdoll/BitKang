@@ -21,11 +21,18 @@ for (let i = 0; i < arr.length ; i++) {
 
 //그 중에서 최대 평균을 찾는다.
 let max = 0
-let period = 0
+let maxPeriod = 0
 for (let i = 0; i < parr.length; i++) {
     if(parr[i] > max){
         max = parr[i]
-        period = i
+        maxPeriod = i
     }
 }
-console.log("MAX:::", period+1 )
+console.log("MAX:::", maxPeriod+1 )
+
+//최소 평균
+let minPeriod = 0
+for (let i = 0; i < parr.length-1; i++) {
+    parr[0] < parr[i+1] ? parr[0] = parr[0] : parr[0] = parr[i+1]
+    console.log("MIN::",parr[0])
+}
