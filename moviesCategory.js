@@ -6,7 +6,7 @@ const movies = [
     {name : '아바웃타임', kiss : 14, action : 2},
     {name : '토이스토리', kiss : 2, action : 7},
     {name : '노팅힐', kiss : 10, action : 2},
-    {name : '타이타닐', kiss : 15, action : 6},
+    {name : '타이타닉', kiss : 15, action : 6},
 ]
 
 const target = {kiss : readlineSync.question("kiss? > "), action : readlineSync.question("action? > ")}
