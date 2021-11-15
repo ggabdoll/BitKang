@@ -57,12 +57,11 @@
             <h1 class="mt-4">Make Booja</h1>
             <div class="input-group mb-3">
                 <input type="number" id="moneyInput" class="form-control" placeholder="얼마??" value="">
-                <button class="btn btn-outline-secondary mybtn" type="button" >Button</button>
+                <button class="btn btn-outline-secondary mybtn" type="button" >번호추출</button>
             </div>
 
             <div id="resultDiv">
-                <ul class="pagination">
-                    <li></li>
+
                 </ul>
             </div>
         </div>
@@ -93,15 +92,15 @@
        for (let i = 0; i < count; i++) {
             const balls = getLottoNum()
             console.log(balls)
-           str += "<ul>"
+           str += `<ul class='pagination'>`
 
            for (let j = 0; j < balls.length; j++) {
 
-               str += `<li>${balls[j]}</li>`
+               str += `<li class="'page-item'"><a class="page-link"> ${balls[j]}</a></li>`
 
            }
-
            str += "</ul>"
+
        }
 
        resultDiv.innerHTML = str
