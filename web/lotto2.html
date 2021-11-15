@@ -54,22 +54,17 @@
         </nav>
         <!-- Page content-->
         <div class="container-fluid">
-            <h1 class="mt-4">이 페이지는 로또 페이지</h1>
-            <button class="btn btn-primary" id="btn">CLICK</button>
-            <style>
-                #resultDiv{
-                    display: flex;
-                }
-                #resultDiv > h3 {
-                    color: white;
-                    margin : 10px;
-                    background-color: #0c63e4;
-                    padding: 20px;
-                    border-radius: 40px;
-                    box-shadow: 5px 5px #1a1e21;
-                }
-            </style>
-            <div id="resultDiv"></div>
+            <h1 class="mt-4">Make Booja</h1>
+            <div class="input-group mb-3">
+                <input type="number" id="moneyInput" class="form-control" placeholder="얼마??" value="">
+                <button class="btn btn-outline-secondary mybtn" type="button" >Button</button>
+            </div>
+
+            <div id="resultDiv">
+                <ul class="pagination">
+                    <li></li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
@@ -78,5 +73,41 @@
 <!-- Core theme JS-->
 <script src="js/scripts.js"></script>
 <script src="js/lotto.js"></script>
+<script>
+
+   const btn = document.querySelector(".mybtn")
+
+   btn.addEventListener("click", () => {
+       console.log("CLICK!!!!")
+
+      const money = document.querySelector("#moneyInput").value
+
+
+       console.log(money)
+
+       const count = parseInt(money) / 1000
+       const resultDiv = document.querySelector("#resultDiv")
+
+       let str = ''
+
+       for (let i = 0; i < count; i++) {
+            const balls = getLottoNum()
+            console.log(balls)
+           str += "<ul>"
+
+           for (let j = 0; j < balls.length; j++) {
+
+               str += `<li>${balls[j]}</li>`
+
+           }
+
+           str += "</ul>"
+       }
+
+       resultDiv.innerHTML = str
+
+   },false)
+
+</script>
 </body>
 </html>

@@ -1,22 +1,27 @@
 
 
-const btn = document.getElementById("btn")
-
-console.log(btn)
-
-btn.addEventListener('click', (e) => {
-    const target = document.getElementById("resultDiv")
-    const balls = getLottoNum()
-
-    target.innerHTML = '';
-
-    for (const number of balls) {
-    const tag = document.createElement("h3");
-   const textNode = document.createTextNode(number)
-        tag.appendChild(textNode)
-    target.appendChild(tag)
-    }
-}, false)
+// const btn = document.getElementById("btn")
+//
+// console.log(btn)
+//
+// btn.addEventListener('click', (e) => {
+//     const target = document.getElementById("resultDiv")
+//     const balls = getLottoNum()
+//
+//     let str = ''
+//
+//     for (const number of balls) {
+//
+//         str += `<h3>${number}</h3>`
+//
+//         target.innerHTML = str
+//     }
+//    //  const tag = document.createElement("h3");
+//    // const textNode = document.createTextNode(number)
+//    //      tag.appendChild(textNode)
+//    //  target.appendChild(tag)
+//    //  }
+// }, false)
 
 function getLottoNum() {
 let numArr = []
