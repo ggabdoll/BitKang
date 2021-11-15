@@ -30,5 +30,6 @@ let numArr = []
             break
         }
     }
+    numArr.sort((a,b)=> a - b)
     return numArr
 }
