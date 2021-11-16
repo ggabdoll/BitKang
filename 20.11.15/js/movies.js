@@ -39,4 +39,8 @@ document.querySelector(".registerBtn").addEventListener("click", () => {
     addMovie(movieObj)
 },false)
 
+const showModal = () => {
+
+}
+
 
