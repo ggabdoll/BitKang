@@ -13,47 +13,168 @@
     }
 
     .panner {
+        display: flex;
+        flex-direction: column;
         width: 100vw;
         height: 100vh;
-        background-color: #86b7fe;
+        align-items: center
     }
     .menuDiv {
-        position: absolute;
+        position: relative;
         top: 0;
         z-index: 100;
-    }
+        background-color: #EADEDE;
+        height: 6vw;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 40px;
 
+    }
+    a{
+        position: relative;
+        text-decoration: none;
+        top: 1vw;
+        margin: 30px;
+    }
+    h1{
+        position: relative;
+        top: 4vw;
+        text-align: center;
+        font-size: 50px;
+    }
+    .inputBox{
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        top:20vw;
+        align-items: center;
+    }
+    [name="title"] {
+        height: 4vh;
+        text-align: center;
+        font-size: 20px;
+        border-width: 0px;
+        border-bottom: 1px solid #EEEBDD;
+        margin-bottom: 70px;
+        outline: none;
+    }
+    [name='content'] {
+        height: 6vh;
+        text-align: center;
+        font-size: 20px;
+        border-width: 0px;
+        border-bottom: 1px solid #EEEBDD;
+        margin-bottom: 20px;
+        outline: none;
+    }
+    [name='dueDate'] {
+        height: 2vh;
+        text-align: center;
+        font-size: 15px;
+        border-width: 0px;
+        border-bottom: 1px solid #EEEBDD;
+        margin-bottom: 20px;
+        outline: none;
+        margin-bottom: 90px;
+    }
+    .saveBtn{
+        background-color: #EADEDE;
+        border-width: 0;
+        border-radius: 5px;
+        height: 5vh;
+        width: 10vw;
+        font-size: 20px;
+        color: #678983;
+    }
 </style>
 
 <div class="menuDiv">
-    <a href="#addPanel">ADD</a>
-    <a href="#listPanel">LIST</a>
-    <a href="#readPanel">READ</a>
+    <a href="#addPanel" style="color: black">ADD</a>
+    <a href="#listPanel"style="color: black">LIST</a>
+    <a href="#readPanel"style="color: black" >READ</a>
 </div>
 
 <div class="panner" id="addPanel">
-    <h1>ADD</h1>
+    <h1>Write your Todo</h1>
     <!--제목/내용/완료여부/날짜-->
-    <div>
-        <label>제목</label>
-        <input type="text" name="title" placeholder="제목을 입력하세요" size="50">
-    </div>
-    <div>
-        <label>내용</label>
-        <textarea name="content" cols="50" rows="5"></textarea>
-    </div>
-    <div>
-        <label>날짜</label>
-        <input type="date" name="dueDate">
-    </div>
-    <div>
-        <label>save</label>
-        <button onclick="saveTodo()">Save</button>
+    <div class="inputBox">
+        <div>
+            <input type="text" name="title" placeholder="write your todo" size="50">
+        </div>
+        <div>
+            <textarea name="content" cols="50" rows="5" placeholder="write segment"></textarea>
+        </div>
+        <div>
+            <input type="date" name="dueDate" placeholder="dueDate">
+        </div>
+        <div>
+            <button class="saveBtn" onclick="saveTodo()">Save</button>
+        </div>
     </div>
 </div>
 
 <div class="panner" id="listPanel">
+    <style>
+        table {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            left: 0.5vw;
+            border: 1px solid white;
+            width: 60vw;
+            top: 25vh;
+            align-items: center;
+            text-align: center;
+            font-size: 17px;
+        }
+
+        table td:first-child {
+            width: 5vw;
+            height: 5vh;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #EEEBDD;
+        }
+        table td:nth-child(2) {
+            width: 5vw;
+            border-bottom: 1px solid #EEEBDD;
+        }
+        table td:nth-child(3) {
+            width: 20vw;
+            border-bottom: 1px solid #EEEBDD;
+        }
+        table td:nth-child(4) {
+            width: 10vw;
+            border-bottom: 1px solid #EEEBDD;
+        }
+        .delBtn{
+            background-color: red;
+            border: 0px;
+            border-radius: 3px;
+            padding: 3px;
+            text-align: center;
+            font-size: 7px;
+            color: white;
+        }
+
+    </style>
     <h1>LIST</h1>
+    <table class="table">
+        <thead>
+            <td onclick="checkAll()">전체선택</td>
+            <td>번호</td>
+            <td>제목</td>
+            <td>날짜</td>
+        </thead>
+        <tbody>
+        <tr>
+            <td><input type="checkbox" name="complete"></td>
+            <td>1</td>
+            <td>todoTitle</td>
+            <td>20.11.18</td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
 <div class="panner" id="readPanel">
@@ -67,20 +188,54 @@
 
     const todoService = outer()
 
+    showList()
+
     function saveTodo() {
         const titleEle = document.querySelector("input[name='title']")
         const contentEle = document.querySelector("textarea[name='content']")
         const dueDateEle = document.querySelector("input[name='dueDate']")
-        
+
         const title = titleEle.value
         const content = contentEle.value
         const dueDate = dueDateEle.value
         const complete = false
 
         todoService.add({title, content, dueDate, complete})
-        console.log(todoService.getAll())
+
+        showList()
+
+    }
+    function showList() {
+
+        const todoArr = todoService.getAll()
+
+        let str = ''
+        for (let i = 0; i < todoArr.length; i++) {
+          const {idx,title,dueDate,complete} = todoArr[i]
+
+            str += `
+            <tr>
+                <td><input type="checkbox" name="complete" ${complete?'checked': ''}></td>
+                <td>${idx}</td>
+                <td>${title}</td>
+                <td>${dueDate}
+                    <button class="delBtn" onclick="deleteTodo(${idx})">DEL</button>
+                </td>
+            </tr>`
+        }
+        document.querySelector("tbody").innerHTML = str
     }
 
+    function checkAll(){
+        todoService.changeAll()
+        showList()
+    }
+
+    function deleteTodo(index) {
+        confirm("deleteTodo?")
+        todoService.removeTodo(index)
+        showList()
+    }
 
 </script>
 
